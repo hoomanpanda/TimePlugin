@@ -1,10 +1,11 @@
 # BakkesMod Plugin to show IRL Time In-Game
 
-Shows time in yellow in the top middle position for a 1920 to 1080 screen. 
+Shows time in yellow in the "top middle" position for a 1920 to 1080 screen. 
+(for me atleast)
 
 Its really just for me but sharing cuz it looks like I'm the first.
 
-Feel free to fork and implement more ideas n stuff. also do share.
+You could request more stuff if you want. I wont make any promises to do/be able to do them tho. Took me like couple days of 2 hour sittings to follow a simple tutorial lol
 
 Dont forget to enable in plugin manager
 
