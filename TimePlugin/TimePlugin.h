@@ -21,6 +21,7 @@ class TimePlugin: public BakkesMod::Plugin::BakkesModPlugin, public BakkesMod::P
 	void RenderSettings() override;
 	std::string GetPluginName() override;
 	void SetImGuiContext(uintptr_t ctx) override;
+	void Render(CanvasWrapper canvas);
 
 public:
 	//void RenderSettings() override; // Uncomment if you wanna render your own tab in the settings menu
