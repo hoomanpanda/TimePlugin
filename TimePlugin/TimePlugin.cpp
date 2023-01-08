@@ -2,14 +2,19 @@
 #include "TimePlugin.h"
 
 
-BAKKESMOD_PLUGIN(TimePlugin, "write a plugin description here", plugin_version, PLUGINTYPE_FREEPLAY)
+BAKKESMOD_PLUGIN(TimePlugin, "Time Plugin", "1.0", 0)
 
 std::shared_ptr<CVarManagerWrapper> _globalCvarManager;
 
 void TimePlugin::onLoad()
 {
 	_globalCvarManager = cvarManager;
-	//LOG("Plugin loaded!");
+	std::time_t t = std::time(NULL);
+	std::tm now = *std::localtime(&t);
+	std::stringstream ss;
+	ss << std::put_time(&now, "%T");
+	std::string s = ss.str();
+	LOG(s);
 	// !! Enable debug logging by setting DEBUG_LOG = true in logging.h !!
 	//DEBUGLOG("TimePlugin debug mode enabled");
 
@@ -46,4 +51,16 @@ void TimePlugin::onLoad()
 	//});
 	// You could also use std::bind here
 	//gameWrapper->HookEvent("Function TAGame.Ball_TA.Explode", std::bind(&TimePlugin::YourPluginMethod, this);
+}
+
+void TimePlugin::RenderSettings() {
+	ImGui::TextUnformatted("A plugin to show time");
+}
+
+std::string TimePlugin::GetPluginName() {
+	return "Time plugin";
+}
+
+void TimePlugin::SetImGuiContext(uintptr_t ctx) {
+	ImGui::SetCurrentContext(reinterpret_cast<ImGuiContext*>(ctx));
 }
