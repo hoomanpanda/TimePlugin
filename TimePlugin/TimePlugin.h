@@ -18,9 +18,11 @@ class TimePlugin: public BakkesMod::Plugin::BakkesModPlugin, public BakkesMod::P
 	//Boilerplate
 	void onLoad() override;
 	//void onUnload() override; // Uncomment and implement if you need a unload method
-	void RenderSettings() override;
-	std::string GetPluginName() override;
+
 	void SetImGuiContext(uintptr_t ctx) override;
+	std::string GetPluginName() override;
+
+	void RenderSettings() override;
 	void Render(CanvasWrapper canvas);
 
 public:

@@ -5,10 +5,13 @@
 BAKKESMOD_PLUGIN(TimePlugin, "Time Plugin", "1.0", 0)
 
 std::shared_ptr<CVarManagerWrapper> _globalCvarManager;
+bool timeForOnlineGamesEnabled = false;
 
 void TimePlugin::onLoad()
 {
 	_globalCvarManager = cvarManager;
+
+	//get time
 	std::time_t t = std::time(NULL);
 	std::tm now = *std::localtime(&t);
 	std::stringstream ss;
@@ -19,6 +22,13 @@ void TimePlugin::onLoad()
 	gameWrapper->RegisterDrawable([this](CanvasWrapper canvas) {
 		Render(canvas);
 		});
+
+	cvarManager->registerCvar("timeForOnlineGames", "0", "Enable Cool", true, true, 0, true, 1)
+		.addOnValueChanged([this](std::string oldValue, CVarWrapper cvar) {
+			timeForOnlineGamesEnabled = cvar.getBoolValue();
+			});
+
+
 	// !! Enable debug logging by setting DEBUG_LOG = true in logging.h !!
 	//DEBUGLOG("TimePlugin debug mode enabled");
 
@@ -57,46 +67,4 @@ void TimePlugin::onLoad()
 	//gameWrapper->HookEvent("Function TAGame.Ball_TA.Explode", std::bind(&TimePlugin::YourPluginMethod, this);
 }
 
-void TimePlugin::RenderSettings() {
-	ImGui::TextUnformatted("BakkesMod Plugin to show IRL Time In-Game");
-}
 
-std::string TimePlugin::GetPluginName() {
-	return "Time plugin";
-}
-
-void TimePlugin::SetImGuiContext(uintptr_t ctx) {
-	ImGui::SetCurrentContext(reinterpret_cast<ImGuiContext*>(ctx));
-}
-
-// in a .cpp file 
-void TimePlugin::Render(CanvasWrapper canvas) {
-	// defines colors in RGBA 0-255
-	LinearColor colors;
-	colors.R = 255;
-	colors.G = 255;
-	colors.B = 0;
-	colors.A = 255;
-	canvas.SetColor(colors);
-
-	
-
-	// sets position to top left
-	// x moves to the right
-	// y moves down
-	// bottom right would be 1920, 1080 for 1080p monitors
-	canvas.SetPosition(Vector2F{ 900.0, 0.0 });
-
-	// get time
-	std::time_t t = std::time(NULL);
-	std::tm now = *std::localtime(&t);
-	std::stringstream ss;
-	ss << std::put_time(&now, "%T");
-	std::string s = ss.str();
-
-	// say Time
-	// draws from the last set position
-	// the two floats are text x and y scale
-	// the false turns off the drop shadow
-	canvas.DrawString(s, 2.0, 2.0, false);
-}
