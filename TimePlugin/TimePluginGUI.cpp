@@ -11,7 +11,6 @@ std::string TimePlugin::GetPluginName() {
 }
 
 void TimePlugin::RenderSettings() {
-	ImGui::TextUnformatted("BakkesMod Plugin to show IRL Time In-Game");
 
 	CVarWrapper enableCvar = cvarManager->getCvar("timeForOnlineGames");
 
@@ -27,8 +26,12 @@ void TimePlugin::RenderSettings() {
 	}
 
 	//time color picker
+	ImGui::Separator();
+	ImGui::TextUnformatted("Change color of time");
+
 	CVarWrapper timeColorVar = cvarManager->getCvar("timeColor");
 	if (!timeColorVar) { return; }
+
 	// converts from 0-255 color to 0.0-1.0 color
 	LinearColor textColor = timeColorVar.getColorValue() / 255;
 	if (ImGui::ColorEdit4("Text Color", &textColor.R)) {
@@ -37,13 +40,6 @@ void TimePlugin::RenderSettings() {
 }
 
 void TimePlugin::Render(CanvasWrapper canvas) {
-	// defines colors in RGBA 0-255
-	/*LinearColor colors;
-	colors.R = 255;
-	colors.G = 255;
-	colors.B = 0;
-	colors.A = 255;
-	canvas.SetColor(colors);*/
 
 	CVarWrapper textColorVar = cvarManager->getCvar("timeColor");
 	if (!textColorVar) {

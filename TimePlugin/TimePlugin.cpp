@@ -28,7 +28,7 @@ void TimePlugin::onLoad()
 		Render(canvas);
 		});
 
-	cvarManager->registerCvar("timeForOnlineGames", "0", "Enable Cool", true, true, 0, true, 1)
+	cvarManager->registerCvar("timeForOnlineGames", "0", "Enable time for online games", true, true, 0, true, 1)
 		.addOnValueChanged([this](std::string oldValue, CVarWrapper cvar) {
 			timeForOnlineGamesEnabled = cvar.getBoolValue();
 			});
