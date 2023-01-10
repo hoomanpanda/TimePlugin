@@ -1,3 +1,4 @@
 * ~~Disable canvas in online games~~ ✔️
-* Make canvas movable
+* ~~Make canvas movable~~ ✔️
 * ~~Choose canvas text color~~ ✔️
+* Add custom size 
