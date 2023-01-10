@@ -25,17 +25,34 @@ void TimePlugin::RenderSettings() {
 	if (ImGui::IsItemHovered()) {
 		ImGui::SetTooltip("Toggle time For online games");
 	}
+
+	//time color picker
+	CVarWrapper timeColorVar = cvarManager->getCvar("timeColor");
+	if (!timeColorVar) { return; }
+	// converts from 0-255 color to 0.0-1.0 color
+	LinearColor textColor = timeColorVar.getColorValue() / 255;
+	if (ImGui::ColorEdit4("Text Color", &textColor.R)) {
+		timeColorVar.setValue(textColor * 255);
+	}
 }
 
 void TimePlugin::Render(CanvasWrapper canvas) {
 	// defines colors in RGBA 0-255
-	LinearColor colors;
+	/*LinearColor colors;
 	colors.R = 255;
 	colors.G = 255;
 	colors.B = 0;
 	colors.A = 255;
-	canvas.SetColor(colors);
+	canvas.SetColor(colors);*/
 
+	CVarWrapper textColorVar = cvarManager->getCvar("timeColor");
+	if (!textColorVar) {
+		return;
+	}
+	LinearColor textColor = textColorVar.getColorValue();
+	canvas.SetColor(textColor);
+
+	//toggle time for online games
 	CVarWrapper isTimeWantedForOnlineGames = cvarManager->getCvar("timeForOnlineGames");
 
 	bool enabled = isTimeWantedForOnlineGames.getBoolValue();

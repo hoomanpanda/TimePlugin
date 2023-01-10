@@ -18,6 +18,11 @@ void TimePlugin::onLoad()
 	ss << std::put_time(&now, "%T");
 	std::string s = ss.str();
 	LOG(s);
+	
+	//time color
+	cvarManager->registerCvar("timeColor", "#FFFFFF", "color of time");
+
+
 
 	gameWrapper->RegisterDrawable([this](CanvasWrapper canvas) {
 		Render(canvas);
