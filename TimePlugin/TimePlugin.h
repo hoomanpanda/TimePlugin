@@ -24,6 +24,7 @@ class TimePlugin: public BakkesMod::Plugin::BakkesModPlugin, public BakkesMod::P
 
 	void RenderSettings() override;
 	void Render(CanvasWrapper canvas);
+	void DragWidget(CVarWrapper xLocCvar, CVarWrapper yLocCvar);
 
 public:
 	//void RenderSettings() override; // Uncomment if you wanna render your own tab in the settings menu

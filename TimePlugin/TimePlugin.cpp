@@ -19,10 +19,12 @@ void TimePlugin::onLoad()
 	std::string s = ss.str();
 	LOG(s);
 	
-	//time color
+	//time color var
 	cvarManager->registerCvar("timeColor", "#FFFFFF", "color of time");
 
-
+	//
+	cvarManager->registerCvar("time_x_location", "0", "set x location of the overlay");
+	cvarManager->registerCvar("time_y_location", "0", "set y location of the overlay");
 
 	gameWrapper->RegisterDrawable([this](CanvasWrapper canvas) {
 		Render(canvas);
