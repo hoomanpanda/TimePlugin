@@ -22,9 +22,13 @@ void TimePlugin::onLoad()
 	//time color var
 	cvarManager->registerCvar("timeColor", "#FFFFFF", "color of time");
 
-	//
+	//overlay location
 	cvarManager->registerCvar("time_x_location", "0", "set x location of the overlay");
 	cvarManager->registerCvar("time_y_location", "0", "set y location of the overlay");
+
+	//overlay size
+	cvarManager->registerCvar("time_x_scale", "2", "set width of the overlay");
+	cvarManager->registerCvar("time_y_scale", "2", "set height of the overlay");
 
 	gameWrapper->RegisterDrawable([this](CanvasWrapper canvas) {
 		Render(canvas);

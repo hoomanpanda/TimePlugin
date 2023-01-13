@@ -43,7 +43,7 @@ void TimePlugin::RenderSettings() {
 
 	ImGui::Separator();
 	
-	//time overlay location slider
+	//time overlay location slidergit 
 	CVarWrapper xLocCvar = cvarManager->getCvar("time_x_location");
 	if (!xLocCvar) { return; }
 	float xLoc = xLocCvar.getFloatValue();
@@ -60,7 +60,19 @@ void TimePlugin::RenderSettings() {
 	//Drag Mode for time overlay 
 	DragWidget(xLocCvar, yLocCvar);
 
-
+	//time overlay scale slidergit 
+	CVarWrapper xScaleCvar = cvarManager->getCvar("time_x_scale");
+	if (!xScaleCvar) { return; }
+	float xScale = xScaleCvar.getFloatValue();
+	if (ImGui::SliderFloat("Width", &xScale, 0.0, 10.0)) {
+		xScaleCvar.setValue(xScale);
+	}
+	CVarWrapper yScaleCvar = cvarManager->getCvar("time_y_scale");
+	if (!yScaleCvar) { return; }
+	float yScale = yScaleCvar.getFloatValue();
+	if (ImGui::SliderFloat("Height", &yScale, 0.0, 10.0)) {
+		yScaleCvar.setValue(yScale);
+	}
 }
 
 void TimePlugin::Render(CanvasWrapper canvas) {
@@ -99,11 +111,20 @@ void TimePlugin::Render(CanvasWrapper canvas) {
 	ss << std::put_time(&now, "%T");
 	std::string s = ss.str();
 
+	//get the scale of overlay
+	CVarWrapper xScaleCvar = cvarManager->getCvar("time_x_scale");
+	if (!xScaleCvar) { return; }
+	float xScale = xScaleCvar.getFloatValue();
+
+	CVarWrapper yScaleCvar = cvarManager->getCvar("time_y_scale");
+	if (!yScaleCvar) { return; }
+	float yScale = yScaleCvar.getFloatValue();
+
 	// say Time
 	// draws from the last set position
 	// the two floats are text x and y scale
 	// the false turns off the drop shadow
-	canvas.DrawString(s, 2.0, 2.0, false);
+	canvas.DrawString(s, xScale, yScale, true);
 }
 
 void TimePlugin::DragWidget(CVarWrapper xLocCvar, CVarWrapper yLocCvar) {
